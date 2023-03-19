@@ -1,4 +1,3 @@
-
 import yfinance as yf
 import pandas as pd
 import os
@@ -49,11 +48,8 @@ def backtest(data, model, predictors, start=2500, step=250):
     return pd.concat(all_predictions)
 predictions = backtest(sp500, model, predictors)
 predictions["Predictions"].value_counts()
-precision_score(predictions["Target"], predictions["Predictions"])
-predictions["Target"].value_counts() / predictions.shape[0]
 horizons = [2,5,60,250,1000]
 new_predictors = []
-
 for horizon in horizons:
     rolling_averages = sp500.rolling(horizon).mean()
    
@@ -75,7 +71,4 @@ def predict(train, test, predictors, model):
     combined = pd.concat([test["Target"], preds], axis=1)
     return combined
 predictions = backtest(sp500, model, new_predictors)
-predictions["Predictions"].value_counts()
-precision_score(predictions["Target"], predictions["Predictions"])
-predictions["Target"].value_counts() / predictions.shape[0]
 predictions
